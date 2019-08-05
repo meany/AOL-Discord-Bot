@@ -51,7 +51,10 @@ namespace dm.AOL.Bot.Modules
                     return;
                 }
 
-                output.AddField($"Command: **{cmd.Aliases.FirstOrDefault()}**",
+                string cmdName = cmd.Aliases.FirstOrDefault();
+                cmdName = (cmdName == "{s") ? "{S" : cmdName;
+
+                output.AddField($"Command: **{cmdName}**",
                     $"{GetParams(cmd)}\n" +
                     $"**Summary**: {cmd.Summary}\n" +
                     $"**Remarks**: {cmd.Remarks}" +
@@ -63,7 +66,10 @@ namespace dm.AOL.Bot.Modules
 
         private void AddHelp(CommandInfo cmd, ref EmbedBuilder output)
         {
-            output.AddField($"— {cmd.Aliases.FirstOrDefault()} {GetParams(cmd, false)}",
+            string cmdName = cmd.Aliases.FirstOrDefault();
+            cmdName = (cmdName == "{s") ? "{S" : cmdName;
+
+            output.AddField($"— {cmdName} {GetParams(cmd, false)}",
                 $"{cmd.Summary}" +
                 $"{GetAliases(cmd)}");
         }
@@ -71,7 +77,7 @@ namespace dm.AOL.Bot.Modules
         private string GetAliases(CommandInfo cmd)
         {
             string s = string.Empty;
-            var aliases = cmd.Aliases.Where(x => x != cmd.Name);
+            var aliases = cmd.Aliases.Where(x => x != cmd.Name.ToLower());
             if (aliases.Any())
             {
                 string aliasJoin = string.Join("|", aliases.Select(x => $"`{x}`"));

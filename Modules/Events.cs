@@ -36,7 +36,8 @@ namespace dm.AOL.Bot
             {
                 var result = await commands.ExecuteAsync(context, 0, services).ConfigureAwait(false);
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand && result.Error != CommandError.ParseFailed)
-                    await context.Channel.SendMessageAsync(result.ErrorReason).ConfigureAwait(false);
+                    // no more errors for u clowns
+                    //await context.Channel.SendMessageAsync(result.ErrorReason).ConfigureAwait(false);
                 return;
             }
 
@@ -48,8 +49,8 @@ namespace dm.AOL.Bot
 
                 if (m.Success && m.Groups.Count == 3)
                 {
-                    int dice = int.Parse(m.Groups[1].Value);
-                    int sides = int.Parse(m.Groups[2].Value);
+                    uint dice = uint.Parse(m.Groups[1].Value);
+                    uint sides = uint.Parse(m.Groups[2].Value);
 
                     await new Roller(config).Roll(context, dice, sides);
                 }

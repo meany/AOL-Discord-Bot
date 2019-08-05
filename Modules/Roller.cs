@@ -16,7 +16,7 @@ namespace dm.AOL.Bot.Modules
             this.config = config;
         }
 
-        public async Task Roll(CommandContext ctx, int dice, int sides)
+        public async Task Roll(CommandContext ctx, uint dice, uint sides)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace dm.AOL.Bot.Modules
                     var rnd = new Random();
                     for (int i = 0; i < dice; i++)
                     {
-                        s += $" {rnd.Next(1, sides)}";
+                        s += $" {rnd.Next(1, (int)sides)}";
                     }
 
                     await Discord.ReplyAsync(ctx,

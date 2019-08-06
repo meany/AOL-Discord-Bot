@@ -1,11 +1,10 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using dm.AOL.Bot;
 using dm.AOL.Bot.Modules;
+using System;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace dm.AOL.Bot
 {
@@ -35,9 +34,9 @@ namespace dm.AOL.Bot
             if (message.HasStringPrefix("?", ref argPos) || message.HasStringPrefix("{S", ref argPos))
             {
                 var result = await commands.ExecuteAsync(context, 0, services).ConfigureAwait(false);
-                if (!result.IsSuccess && result.Error != CommandError.UnknownCommand && result.Error != CommandError.ParseFailed)
-                    // no more errors for u clowns
-                    //await context.Channel.SendMessageAsync(result.ErrorReason).ConfigureAwait(false);
+                // no more errors for u clowns
+                //if (!result.IsSuccess && result.Error != CommandError.UnknownCommand && result.Error != CommandError.ParseFailed)
+                //await context.Channel.SendMessageAsync(result.ErrorReason).ConfigureAwait(false);
                 return;
             }
 
@@ -80,7 +79,8 @@ namespace dm.AOL.Bot
             var dmChannel = await arg.GetOrCreateDMChannelAsync().ConfigureAwait(false);
             await dmChannel.SendMessageAsync("\\*\\*\\* You are in \"Town Square - Lobby 1\". \\*\\*\\*").ConfigureAwait(false);
 
-            foreach (var channelId in config.ChannelIds) {
+            foreach (var channelId in config.ChannelIds)
+            {
                 var channel = (ITextChannel)client.GetChannel(channelId);
                 await channel.SendMessageAsync($"{arg.Mention} has entered the room.").ConfigureAwait(false);
             }

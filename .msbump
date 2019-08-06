@@ -4,7 +4,8 @@
       "BumpRevision": true
     },
     "Release": {
-      "BumpMinor": true
+      "BumpMinor": true,
+      "BumpRevision": true
     }
   }
 }

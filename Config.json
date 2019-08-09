@@ -1,5 +1,8 @@
 {
   "BotToken": "<TOKEN>",
-  "ChannelIds": [],
-  "RequestCooldown": 60
+  "GuildId": 0,
+  "ChannelIds": [ 0 ],
+  "GagRoleId": 0,
+  "EmoteGagged": "",
+  "AdminRoleIds": [ 0 ]
 }

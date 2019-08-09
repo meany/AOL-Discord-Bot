@@ -23,8 +23,8 @@ namespace dm.AOL.Bot.Modules
                 if (ctx.Channel is IDMChannel)
                 {
                     await Discord.ReplyAsync(ctx,
-                        message: "Please make this request in one of the official channels.");
-
+                        message: "Please make this request in one of the official channels.")
+                        .ConfigureAwait(false);
                     return;
                 }
 
@@ -43,7 +43,8 @@ namespace dm.AOL.Bot.Modules
                     }
 
                     await Discord.ReplyAsync(ctx,
-                        message: $"{ctx.User.Mention} rolled {dice} {sides}-sided dice:{s}");
+                        message: $"{ctx.User.Mention} rolled {dice} {sides}-sided dice:{s}")
+                        .ConfigureAwait(false);
                 }
             }
             catch (Exception ex)

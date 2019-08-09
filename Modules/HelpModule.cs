@@ -114,7 +114,7 @@ namespace dm.AOL.Bot.Modules
                     }
                     else if (param.Type == typeof(int))
                     {
-                        s += $"-{param.Name}#";
+                        s += $"#{param.Name} ";
                     }
                     else
                     {

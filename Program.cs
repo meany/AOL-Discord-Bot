@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using NLog;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace dm.AOL.Bot
         private IServiceProvider services;
         private IConfigurationRoot configuration;
         private Config config;
+        private SocketRole gagRole;
         private static Logger log = LogManager.GetCurrentClassLogger();
 
         public static void Main(string[] args)

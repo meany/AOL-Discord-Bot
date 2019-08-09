@@ -3,6 +3,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using dm.AOL.Bot.Modules;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace dm.AOL.Bot
         private readonly DiscordSocketClient client;
         private readonly IServiceProvider services;
         private readonly Config config;
+        private SocketRole gagRole;
 
         public Events(CommandService commands, DiscordSocketClient client, IServiceProvider services, Config config)
         {
@@ -31,7 +33,17 @@ namespace dm.AOL.Bot
             int argPos = 0;
             var context = new CommandContext(client, message);
 
-            if (message.HasStringPrefix("?", ref argPos) || message.HasStringPrefix("{S", ref argPos))
+            if (!(context.Channel is IDMChannel))
+            {
+                var user = await context.Guild.GetUserAsync(message.Author.Id).ConfigureAwait(false);
+                if (user.RoleIds.Contains(gagRole.Id))
+                {
+                    await message.DeleteAsync().ConfigureAwait(false);
+                    return;
+                }
+            }
+
+            if (message.HasStringPrefix("?", ref argPos) || message.HasStringPrefix("{S", ref argPos) || message.HasStringPrefix("=", ref argPos))
             {
                 var result = await commands.ExecuteAsync(context, 0, services).ConfigureAwait(false);
                 // no more errors for u clowns
@@ -53,6 +65,7 @@ namespace dm.AOL.Bot
 
                     await new Roller(config).Roll(context, dice, sides);
                 }
+                return;
             }
 
         }
@@ -65,6 +78,8 @@ namespace dm.AOL.Bot
                 {
                     x.Username = "OnlineHost";
                 }).ConfigureAwait(false);
+
+                gagRole = g.Roles.Single(x => x.Id == config.GagRoleId);
             }
 
             //var chan = (ITextChannel)client.GetChannel(config.ChannelIds[0]);

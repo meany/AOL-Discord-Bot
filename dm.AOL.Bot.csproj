@@ -4,7 +4,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <Version>1.8.0.84</Version>
+    <Version>1.10.0.104</Version>
     <AssemblyName>aolbot</AssemblyName>
   </PropertyGroup>
 

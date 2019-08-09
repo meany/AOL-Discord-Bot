@@ -41,8 +41,8 @@ namespace dm.AOL.Bot.Modules
                 if (Context.Channel is IDMChannel)
                 {
                     await Discord.ReplyAsync(Context,
-                        message: "Please make this request in one of the official channels.");
-
+                        message: "Please make this request in one of the official channels.")
+                        .ConfigureAwait(false);
                     return;
                 }
 

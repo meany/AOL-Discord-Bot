@@ -4,7 +4,6 @@ using Discord.Commands;
 using Microsoft.Extensions.Options;
 using NLog;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,9 +59,21 @@ namespace dm.AOL.Bot.Modules
                 var emote = await new Emotes(Context).Get(config.EmoteGagged);
                 await Context.Message.AddReactionAsync(emote).ConfigureAwait(false);
 
+                // disconnect em in VC
+                var vc = guildUser.VoiceChannel;
+                if (vc != null)
+                {
+                    string filePCM = $"Assets/GOODBYE.pcm";
+                    using (var audioClient = await vc.ConnectAsync())
+                        await SendAsync(audioClient, filePCM).ConfigureAwait(false);
+
+                    await guildUser.ModifyAsync(x => x.Mute = true).ConfigureAwait(false);
+                }
+
                 // wait & remove
                 await Task.Delay(minutes * 60000);
                 await guildUser.RemoveRoleAsync(gagRole).ConfigureAwait(false);
+                await guildUser.ModifyAsync(x => x.Mute = false).ConfigureAwait(false);
                 log.Info($"{guildUser} has been ungagged");
             }
             catch (Exception ex)

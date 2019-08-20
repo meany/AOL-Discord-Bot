@@ -71,7 +71,7 @@ namespace dm.AOL.Bot.Modules
                         if (users.Count > 0)
                         {
                             using (var audioClient = await vc.ConnectAsync())
-                                await SendAsync(audioClient, filePCM);
+                                await SendAsync(audioClient, filePCM).ConfigureAwait(false);
                         }
                     }
                 }

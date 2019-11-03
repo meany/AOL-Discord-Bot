@@ -89,25 +89,31 @@ namespace dm.AOL.Bot
             //}
         }
 
-        internal async Task HandleJoin(SocketGuildUser arg)
+        internal async Task HandleJoin(SocketGuildUser user)
         {
-            var dmChannel = await arg.GetOrCreateDMChannelAsync().ConfigureAwait(false);
+            var dmChannel = await user.GetOrCreateDMChannelAsync().ConfigureAwait(false);
             await dmChannel.SendMessageAsync("\\*\\*\\* You are in \"Town Square - Lobby 1\". \\*\\*\\*").ConfigureAwait(false);
 
             foreach (var channelId in config.ChannelIds)
             {
                 var channel = (ITextChannel)client.GetChannel(channelId);
-                await channel.SendMessageAsync($"{arg.Mention} has entered the room.").ConfigureAwait(false);
+                await channel.SendMessageAsync($"{user.Mention} has entered the room.").ConfigureAwait(false);
             }
         }
 
-        internal async Task HandleLeft(SocketGuildUser arg)
+        internal async Task HandleLeft(SocketGuildUser user)
         {
             foreach (var channelId in config.ChannelIds)
             {
                 var channel = (ITextChannel)client.GetChannel(channelId);
-                await channel.SendMessageAsync($"{arg.Mention} has left the room.").ConfigureAwait(false);
+                await channel.SendMessageAsync($"{user.Mention} has left the room.").ConfigureAwait(false);
             }
+        }
+
+        internal async Task HandleBanned(SocketUser user, SocketGuild guild)
+        {
+            var channel = (ITextChannel)client.GetChannel(config.AdminChannelId);
+            await channel.SendMessageAsync($"{user.Mention} was b7'd.").ConfigureAwait(false);
         }
 
         //public async Task HandleReaction(Cacheable<IUserMessage, ulong> msg, ISocketMessageChannel channel, SocketReaction reaction)

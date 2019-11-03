@@ -140,6 +140,7 @@ namespace dm.AOL.Bot
                 discordClient.MessageReceived += events.HandleCommand;
                 discordClient.UserJoined += events.HandleJoin;
                 discordClient.UserLeft += events.HandleLeft;
+                discordClient.UserBanned += events.HandleBanned;
                 //client.ReactionAdded += events.HandleReaction;
                 await commands.AddModulesAsync(Assembly.GetEntryAssembly(), services).ConfigureAwait(false);
             }

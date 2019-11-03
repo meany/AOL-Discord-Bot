@@ -2,6 +2,7 @@
   "BotToken": "<TOKEN>",
   "GuildId": 0,
   "ChannelIds": [ 0 ],
+  "AdminChannelId": 0,
   "GagRoleId": 0,
   "EmoteGagged": "",
   "AdminRoleIds": [ 0 ]

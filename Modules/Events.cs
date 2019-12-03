@@ -99,6 +99,14 @@ namespace dm.AOL.Bot
                 var channel = (ITextChannel)client.GetChannel(channelId);
                 await channel.SendMessageAsync($"{user.Mention} has entered the room.").ConfigureAwait(false);
             }
+
+            if (user.Id == config.PoleshiftUserId)
+            {
+                var role = user.Guild.GetRole(config.PoleshiftRoleId);
+                await user.AddRoleAsync(role).ConfigureAwait(false);
+                var channel = (ITextChannel)client.GetChannel(config.AdminChannelId);
+                await channel.SendMessageAsync($"{user.Mention} was given the poleshift role (welcome back adam)").ConfigureAwait(false);
+            }
         }
 
         internal async Task HandleLeft(SocketGuildUser user)

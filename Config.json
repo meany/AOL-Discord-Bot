@@ -5,5 +5,7 @@
   "AdminChannelId": 0,
   "GagRoleId": 0,
   "EmoteGagged": "",
-  "AdminRoleIds": [ 0 ]
+  "AdminRoleIds": [ 0 ],
+  "PoleshiftUserId": 0,
+  "PoleshiftRoleId": 0
 }

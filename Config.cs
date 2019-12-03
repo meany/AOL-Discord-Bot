@@ -11,5 +11,7 @@ namespace dm.AOL.Bot
         public ulong GagRoleId { get; set; }
         public List<ulong> AdminRoleIds { get; set; }
         public string EmoteGagged { get; set; }
+        public ulong PoleshiftUserId { get; set; }
+        public ulong PoleshiftRoleId { get; set; }
     }
 }
